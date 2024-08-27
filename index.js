@@ -10,9 +10,9 @@ app.use(cors());
 
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.5q2fm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-
-console.log("connection string : ", uri);
+// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.5q2fm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = "mongodb://localhost:27017/";
+// console.log("connection string : ", uri);
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -47,6 +47,13 @@ async function run() {
     });
 
     // bookings related apis
+
+    app.get("/bookings", async (req, res) => {
+      console.log(req.query.email);
+      const query = { email: req.query?.email };
+      const result = await bookingCollection.find(query).toArray();
+      res.send(result);
+    });
 
     app.post("/bookings", async (req, res) => {
       const customerInfo = req.body;
