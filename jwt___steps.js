@@ -17,5 +17,9 @@
  * set cookies http only
  * 1. http only , secure , { options}
  * 2. cors setting
+ *  cors({
+    origin: ["http://localhost:5173"],
+    credentials: true,
+  })
  * 3. client site {withCredentials : true}
  */
